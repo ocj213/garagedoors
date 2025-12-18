@@ -9,79 +9,51 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
   <style>
-    :root { --maxw: 1100px; }
-
-    /* KEY: prevent page scroll + allow our layout to control height */
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
+    :root { --maxw: 900px; }
     body {
+      margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background: #0b0b0c;
       color: #fff;
-      overflow: hidden; /* KEY: stops the “scroll down” problem */
     }
-
-    /* KEY: full-height column layout */
-    .viewer {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
+    .wrap {
       max-width: var(--maxw);
       margin: 0 auto;
       padding: 12px;
-      box-sizing: border-box;
-      gap: 10px;
     }
-
     header {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-      padding: 10px 6px;
-      flex: 0 0 auto; /* header stays natural height */
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 12px; padding: 10px 6px;
     }
     .brand { font-weight: 700; font-size: 14px; opacity: .95; }
     .counter { font-size: 13px; opacity: .8; }
 
-    /* KEY: swiper becomes the flexible “fills the rest” area */
     .swiper {
       width: 100%;
-      flex: 1 1 auto; /* take remaining height */
-      min-height: 0;  /* KEY: allows flex children to shrink instead of overflowing */
+      height: calc(100vh - 140px);
+      max-height: 900px;
       border-radius: 18px;
       overflow: hidden;
       background: #111;
       box-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
-
     .swiper-slide {
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      display:flex; align-items:center; justify-content:center;
       background: #111;
     }
-
     .page-img {
       width: 100%;
       height: 100%;
-      object-fit: contain; /* full page visible */
+      object-fit: contain;     /* keeps full page visible */
       user-select: none;
       -webkit-user-drag: none;
       background: #111;
     }
 
     .controls {
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      justify-content:space-between;
-      padding: 0 6px;
-      flex: 0 0 auto; /* controls stay natural height */
+      display:flex; gap: 10px; align-items:center; justify-content:space-between;
+      padding: 12px 6px 0 6px;
     }
-
     .btn {
       border: 1px solid rgba(255,255,255,.18);
       background: rgba(255,255,255,.06);
@@ -91,34 +63,26 @@
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      white-space: nowrap;
+      display:inline-flex; align-items:center; gap: 8px;
     }
     .btn:active { transform: translateY(1px); }
     .btn.primary {
       border-color: rgba(255,255,255,.28);
       background: rgba(255,255,255,.12);
     }
+    .hint { font-size: 12px; opacity: .7; padding: 10px 6px 0 6px; }
 
-    .hint {
-      font-size: 12px;
-      opacity: .7;
-      padding: 0 6px 6px 6px;
-      flex: 0 0 auto; /* hint stays natural height */
-    }
-
+    /* Optional: make it feel more “app-like” on mobile */
     @media (max-width: 520px) {
-      .viewer { padding: 10px; }
-      .swiper { border-radius: 16px; }
+      header { padding-top: 6px; }
+      .swiper { height: calc(100vh - 160px); border-radius: 16px; }
       .btn { padding: 11px 12px; border-radius: 14px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="viewer">
+  <div class="wrap">
     <header>
       <div class="brand">Sunline Garage Doors • Brochure</div>
       <div class="counter" id="counter">Page 1 of 16</div>
@@ -126,6 +90,7 @@
 
     <div class="swiper">
       <div class="swiper-wrapper">
+        <!-- 16 pages -->
         <div class="swiper-slide"><img class="page-img" src="1.png" alt="Page 1"></div>
         <div class="swiper-slide"><img class="page-img" src="2.png" alt="Page 2"></div>
         <div class="swiper-slide"><img class="page-img" src="3.png" alt="Page 3"></div>
@@ -146,9 +111,12 @@
     </div>
 
     <div class="controls">
-      <button class="btn" id="prev">← Prev</button>
+      <button class="btn flex" id="prev">← Previous</button>
+
+      <!-- Change this to YOUR number -->
       <a class="btn primary" href="tel:+19497917820">Call Now</a>
-      <button class="btn" id="next">Next →</button>
+
+      <button class="btn flex" id="next">Next →</button>
     </div>
 
     <div class="hint">Tip: swipe left/right on mobile. Pinch-zoom works in most browsers.</div>
